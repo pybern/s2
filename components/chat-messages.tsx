@@ -22,10 +22,50 @@ export function ChatMessages({ messages, isLoading }: { messages: Message[], isL
             )}
           </div>
           <div className="flex-1 pt-1">
-            <div className="prose prose-zinc max-w-none prose-pre:bg-zinc-100 prose-pre:text-zinc-800">
+            <div className="prose prose-zinc max-w-none prose-p:mb-4 prose-headings:mb-4 prose-headings:mt-6 prose-ul:mb-4 prose-ol:mb-4 prose-blockquote:mb-4 prose-pre:mb-4 prose-pre:bg-zinc-100 prose-pre:text-zinc-800">
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={{
+                  p: ({ children, ...props }) => (
+                    <p className="mb-4 last:mb-0" {...props}>
+                      {children}
+                    </p>
+                  ),
+                  h1: ({ children, ...props }) => (
+                    <h1 className="text-2xl font-bold mt-6 mb-4 first:mt-0" {...props}>
+                      {children}
+                    </h1>
+                  ),
+                  h2: ({ children, ...props }) => (
+                    <h2 className="text-xl font-bold mt-6 mb-4 first:mt-0" {...props}>
+                      {children}
+                    </h2>
+                  ),
+                  h3: ({ children, ...props }) => (
+                    <h3 className="text-lg font-bold mt-5 mb-3 first:mt-0" {...props}>
+                      {children}
+                    </h3>
+                  ),
+                  ul: ({ children, ...props }) => (
+                    <ul className="mb-4 space-y-1 list-disc pl-6" {...props}>
+                      {children}
+                    </ul>
+                  ),
+                  ol: ({ children, ...props }) => (
+                    <ol className="mb-4 space-y-1 list-decimal pl-6" {...props}>
+                      {children}
+                    </ol>
+                  ),
+                  li: ({ children, ...props }) => (
+                    <li className="leading-relaxed" {...props}>
+                      {children}
+                    </li>
+                  ),
+                  blockquote: ({ children, ...props }) => (
+                    <blockquote className="border-l-4 border-zinc-300 pl-4 py-2 mb-4 italic text-zinc-600" {...props}>
+                      {children}
+                    </blockquote>
+                  ),
                   code: ({ className, children, ...props }) => {
                     const isInline = !className
                     if (isInline) {
@@ -42,9 +82,29 @@ export function ChatMessages({ messages, isLoading }: { messages: Message[], isL
                     )
                   },
                   pre: ({ children, ...props }) => (
-                    <pre className="bg-zinc-100 p-4 rounded-lg overflow-x-auto" {...props}>
+                    <pre className="bg-zinc-100 p-4 rounded-lg overflow-x-auto mb-4" {...props}>
                       {children}
                     </pre>
+                  ),
+                  table: ({ children, ...props }) => (
+                    <div className="mb-4 overflow-x-auto">
+                      <table className="min-w-full border-collapse border border-zinc-300" {...props}>
+                        {children}
+                      </table>
+                    </div>
+                  ),
+                  th: ({ children, ...props }) => (
+                    <th className="border border-zinc-300 bg-zinc-50 px-3 py-2 text-left font-semibold" {...props}>
+                      {children}
+                    </th>
+                  ),
+                  td: ({ children, ...props }) => (
+                    <td className="border border-zinc-300 px-3 py-2" {...props}>
+                      {children}
+                    </td>
+                  ),
+                  hr: ({ ...props }) => (
+                    <hr className="my-6 border-t border-zinc-300" {...props} />
                   ),
                 }}
               >

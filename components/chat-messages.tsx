@@ -4,6 +4,8 @@ import { cn } from "@/lib/utils"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 import { useState, useEffect } from "react"
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
+import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism"
 
 export function ChatMessages({ messages, isLoading }: { messages: Message[], isLoading?: boolean }) {
   const [loadingTime, setLoadingTime] = useState(0)
@@ -92,6 +94,9 @@ export function ChatMessages({ messages, isLoading }: { messages: Message[], isL
                   ),
                   code: ({ className, children, ...props }) => {
                     const isInline = !className
+                    const match = /language-(\w+)/.exec(className || '')
+                    const language = match ? match[1] : ''
+                    
                     if (isInline) {
                       return (
                         <code className="bg-zinc-100 px-1 py-0.5 rounded text-sm font-mono text-zinc-800" {...props}>
@@ -99,17 +104,32 @@ export function ChatMessages({ messages, isLoading }: { messages: Message[], isL
                         </code>
                       )
                     }
+                    
                     return (
-                      <code className={className} {...props}>
-                        {children}
-                      </code>
+                      <SyntaxHighlighter
+                        style={oneDark}
+                        language={language}
+                        PreTag="div"
+                        className="mb-4 rounded-lg overflow-hidden"
+                        customStyle={{
+                          margin: 0,
+                          borderRadius: '0.5rem',
+                          fontSize: '14px',
+                        }}
+                        codeTagProps={{
+                          style: {
+                            fontSize: 'inherit',
+                          }
+                        }}
+                      >
+                        {String(children).replace(/\n$/, '')}
+                      </SyntaxHighlighter>
                     )
                   },
-                  pre: ({ children, ...props }) => (
-                    <pre className="bg-zinc-100 p-4 rounded-lg overflow-x-auto mb-4" {...props}>
-                      {children}
-                    </pre>
-                  ),
+                  pre: ({ children, ...props }) => {
+                    // Skip pre wrapper when using SyntaxHighlighter
+                    return <>{children}</>
+                  },
                   table: ({ children, ...props }) => (
                     <div className="mb-4 overflow-x-auto">
                       <table className="min-w-full border-collapse border border-zinc-300" {...props}>

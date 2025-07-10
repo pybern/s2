@@ -26,12 +26,19 @@ export async function POST(req: Request) {
   const result = streamText({
     model: myProvider.languageModel('azure-sm-model'),
     system: `You are a helpful assistant. Create an SQL query based on the provided table description provided by the table agent and query agent.
-  
+
+Instructions:
+1. Use the table agent's response to understand the structure and relationships of the tables.
+2. Use the query agent's response to understand the specific query requirements.
+3. Generate a valid SQL query that meets the requirements specified in the query agent's response.
+4. Do not include the database name in the query.
+
 TABLE AGENT RESPONSE:
 ${tableAgentResult}
 
 QUERY AGENT RESPONSE:
 ${queryAgentResult}
+
     
     `,
     messages,

@@ -30,7 +30,7 @@ export function Header({ selectedCollectionId, onCollectionChange }: HeaderProps
         <div className="flex items-center space-x-2">
           <Sparkles className="h-5 w-5 text-purple-500" />
           <span className="font-semibold">/</span>
-          <span className="font-semibold">Squeel</span>
+            <a href="/" className="font-semibold hover:underline">Squeel</a>
         </div>
       </div>
       

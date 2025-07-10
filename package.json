@@ -19,6 +19,7 @@
     "ai": "^4.3.17",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "fs": "0.0.1-security",
     "lucide-react": "^0.525.0",
     "mdast": "^3.0.0",
     "next": "15.3.5",
@@ -30,6 +31,7 @@
     "remark-gfm": "^4.0.1",
     "remark-parse": "^11.0.0",
     "tailwind-merge": "^3.3.1",
+    "tls": "^0.0.1",
     "unified": "^11.0.5",
     "unist-util-visit": "^5.0.0",
     "zod": "^3.23.8"

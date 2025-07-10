@@ -6,12 +6,8 @@ import remarkGfm from "remark-gfm"
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism"
 
-import { extractSqlWithRemark } from "@/lib/utils/extract-sql-blocks"
 
 export function ChatMessages({ messages, isLoading }: { messages: Message[], isLoading?: boolean }) {
-
-  const latestMessage = messages[messages.length - 1]
-  console.log('SQL Logs', extractSqlWithRemark(latestMessage.content))
 
   return (
     <div className="space-y-6 px-4 py-6 max-w-2xl mx-auto">

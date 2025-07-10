@@ -28,7 +28,6 @@ export function Header({ selectedCollectionId, onCollectionChange }: HeaderProps
           <Menu className="h-5 w-5" />
         </Button>
         <div className="flex items-center space-x-2">
-          <Sparkles className="h-5 w-5 text-purple-500" />
           <span className="font-semibold">/</span>
             <a href="/" className="font-semibold hover:underline">Squeel</a>
         </div>
@@ -46,13 +45,6 @@ export function Header({ selectedCollectionId, onCollectionChange }: HeaderProps
           />
         </div>
         
-        <Button variant="default" className="bg-black text-white">
-          <Triangle className="h-4 w-4 mr-2 fill-white" />
-          Deploy with Vercel
-        </Button>
-        <Button variant="secondary" className="bg-purple-100 text-purple-700 hover:bg-purple-200">
-          Login
-        </Button>
       </div>
     </header>
   )

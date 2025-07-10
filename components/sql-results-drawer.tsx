@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { X, Play, Clock, Database, AlertCircle, CheckCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { runSafeSql, type SqlResult } from "@/lib/utils/run-safe-sql"
+import { DynamicBarChart } from "@/components/dynamic-bar-chart"
 
 interface SqlResultsDrawerProps {
   isOpen: boolean
@@ -29,8 +30,16 @@ export function SqlResultsDrawer({ isOpen, onClose, sqlQueries }: SqlResultsDraw
         maxRows: 100,
         timeout: 30000
       })
+      console.log(`SQL Query ${index + 1} executed:`, {
+        query: query.trim(),
+        result: result
+      })
       setResults(prev => ({ ...prev, [index]: result }))
     } catch (error) {
+      console.error(`SQL Query ${index + 1} failed:`, {
+        query: query.trim(),
+        error: error instanceof Error ? error.message : 'Unknown error occurred'
+      })
       setResults(prev => ({ 
         ...prev, 
         [index]: {
@@ -150,39 +159,48 @@ export function SqlResultsDrawer({ isOpen, onClose, sqlQueries }: SqlResultsDraw
                         </div>
                         
                         {results[index].data!.length > 0 ? (
-                          <div className="border rounded overflow-x-auto">
-                            <table className="min-w-full text-sm">
-                              <thead className="bg-gray-50">
-                                <tr>
-                                  {Object.keys(results[index].data![0]).map((column) => (
-                                    <th
-                                      key={column}
-                                      className="px-3 py-2 text-left font-medium text-gray-700 border-b"
-                                    >
-                                      {column}
-                                    </th>
-                                  ))}
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {results[index].data!.map((row, rowIndex) => (
-                                  <tr key={rowIndex} className="border-b">
-                                    {Object.values(row).map((value, cellIndex) => (
-                                      <td
-                                        key={cellIndex}
-                                        className="px-3 py-2 text-gray-700"
+                          <div className="space-y-6">
+                            {/* Table Results */}
+                            <div className="border rounded overflow-x-auto">
+                              <table className="min-w-full text-sm">
+                                <thead className="bg-gray-50">
+                                  <tr>
+                                    {Object.keys(results[index].data![0]).map((column) => (
+                                      <th
+                                        key={column}
+                                        className="px-3 py-2 text-left font-medium text-gray-700 border-b"
                                       >
-                                        {value === null ? (
-                                          <span className="text-gray-400 italic">null</span>
-                                        ) : (
-                                          String(value)
-                                        )}
-                                      </td>
+                                        {column}
+                                      </th>
                                     ))}
                                   </tr>
-                                ))}
-                              </tbody>
-                            </table>
+                                </thead>
+                                <tbody>
+                                  {results[index].data!.map((row, rowIndex) => (
+                                    <tr key={rowIndex} className="border-b">
+                                      {Object.values(row).map((value, cellIndex) => (
+                                        <td
+                                          key={cellIndex}
+                                          className="px-3 py-2 text-gray-700"
+                                        >
+                                          {value === null ? (
+                                            <span className="text-gray-400 italic">null</span>
+                                          ) : (
+                                            String(value)
+                                          )}
+                                        </td>
+                                      ))}
+                                    </tr>
+                                  ))}
+                                </tbody>
+                              </table>
+                            </div>
+
+                            {/* Chart Visualization */}
+                            <div className="border rounded p-4 bg-gray-50">
+                              <h4 className="font-medium text-gray-800 mb-4">Data Visualization</h4>
+                              <DynamicBarChart data={results[index].data!} />
+                            </div>
                           </div>
                         ) : (
                           <div className="text-center text-gray-500 py-4">

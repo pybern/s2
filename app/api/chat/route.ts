@@ -45,5 +45,5 @@ ${queryAgentResult}
                 experimental_transform: smoothStream({ chunking: 'word' }),
   })
 
-  return result.toDataStreamResponse()
+  return result.toTextStreamResponse()
 }

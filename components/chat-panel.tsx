@@ -20,6 +20,7 @@ export function ChatPanel() {
     body: {
       selectedCollectionId
     },
+    streamProtocol: 'text', // Use text streaming instead of data streaming
     onResponse: () => {
       setIsLoading(false)
     },

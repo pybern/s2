@@ -3,8 +3,32 @@ import { Sparkles, User, Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
+import { useState, useEffect } from "react"
 
 export function ChatMessages({ messages, isLoading }: { messages: Message[], isLoading?: boolean }) {
+  const [loadingTime, setLoadingTime] = useState(0)
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout | null = null
+    
+    if (isLoading) {
+      setLoadingTime(0)
+      interval = setInterval(() => {
+        setLoadingTime(prev => prev + 0.1)
+      }, 100)
+    } else {
+      if (interval) {
+        clearInterval(interval)
+      }
+    }
+
+    return () => {
+      if (interval) {
+        clearInterval(interval)
+      }
+    }
+  }, [isLoading])
+
   return (
     <div className="space-y-6 px-4 py-6 max-w-2xl mx-auto">
       {messages.map((m, i) => (
@@ -123,6 +147,7 @@ export function ChatMessages({ messages, isLoading }: { messages: Message[], isL
             <div className="flex items-center space-x-2">
               <Loader2 className="h-4 w-4 animate-spin text-zinc-500" />
               <span className="text-zinc-500">Thinking...</span>
+              <span className="text-zinc-400 text-sm">({loadingTime.toFixed(1)}s)</span>
             </div>
           </div>
         </div>

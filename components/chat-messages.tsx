@@ -5,7 +5,7 @@ import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism"
-import { memo } from "react"
+import { memo, useEffect, useRef } from "react"
 
 // Memoize individual message component to prevent unnecessary re-renders
 const MessageItem = memo(({ message, index }: { message: Message; index: number }) => (
@@ -137,8 +137,25 @@ const MessageItem = memo(({ message, index }: { message: Message; index: number 
 MessageItem.displayName = 'MessageItem'
 
 export function ChatMessages({ messages, isLoading }: { messages: Message[], isLoading?: boolean }) {
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  // Auto-scroll to bottom when messages change or when loading
+  useEffect(() => {
+    const scrollToBottom = () => {
+      if (messagesEndRef.current) {
+        messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
+      }
+    }
+
+    // Small delay to ensure DOM is updated
+    const timeoutId = setTimeout(scrollToBottom, 50)
+    
+    return () => clearTimeout(timeoutId)
+  }, [messages, isLoading])
+
   return (
-    <div className="space-y-6 px-4 py-6 max-w-2xl mx-auto">
+    <div ref={containerRef} className="space-y-6 px-4 py-6 max-w-2xl mx-auto">
       {messages.map((m, i) => (
         <MessageItem key={`${m.id || i}-${m.role}`} message={m} index={i} />
       ))}
@@ -155,6 +172,8 @@ export function ChatMessages({ messages, isLoading }: { messages: Message[], isL
           </div>
         </div>
       )}
+      {/* Invisible element at the bottom to scroll to */}
+      <div ref={messagesEndRef} />
     </div>
   )
 }

@@ -19,10 +19,6 @@ export async function POST(req: Request) {
       selectedCollectionId)
   ])
 
-  console.log('Collection ID:', selectedCollectionId)
-  console.log('Table agent result:', tableAgentResult)
-  console.log('Query agent result:', queryAgentResult)
-
   const result = streamText({
     model: myProvider.languageModel('azure-sm-model'),
     system: `You are a helpful assistant. Create an SQL query based on the provided table description provided by the table agent and query agent.

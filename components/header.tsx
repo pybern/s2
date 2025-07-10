@@ -1,7 +1,26 @@
+"use client"
+
 import { Menu, Sparkles, Triangle } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Combobox } from "@/components/ui/combobox"
+import { useCollections } from "@/lib/hooks/use-collections"
 
-export function Header() {
+interface HeaderProps {
+  selectedCollectionId?: string
+  onCollectionChange?: (collectionId: string) => void
+}
+
+export function Header({ selectedCollectionId, onCollectionChange }: HeaderProps) {
+  const { collections, loading } = useCollections()
+
+  const collectionOptions = [
+    { value: 'all', label: 'All Collections' },
+    ...collections.map(collection => ({
+      value: collection.db_id,
+      label: collection.name
+    }))
+  ]
+
   return (
     <header className="flex items-center justify-between p-4 border-b">
       <div className="flex items-center space-x-4">
@@ -11,10 +30,22 @@ export function Header() {
         <div className="flex items-center space-x-2">
           <Sparkles className="h-5 w-5 text-purple-500" />
           <span className="font-semibold">/</span>
-          <span className="font-semibold">Next.js Gemini Chatbot</span>
+          <span className="font-semibold">Squeel</span>
         </div>
       </div>
-      <div className="flex items-center space-x-2">
+      
+      <div className="flex items-center space-x-4">
+        <div className="w-64">
+          <Combobox
+            options={collectionOptions}
+            value={selectedCollectionId || 'all'}
+            onValueChange={onCollectionChange}
+            placeholder={loading ? "Loading collections..." : "Select collection..."}
+            searchPlaceholder="Search collections..."
+            emptyText="No collections found."
+          />
+        </div>
+        
         <Button variant="default" className="bg-black text-white">
           <Triangle className="h-4 w-4 mr-2 fill-white" />
           Deploy with Vercel

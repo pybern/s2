@@ -6,17 +6,19 @@ import queryAgent from '@/lib/ai/agents/query-agent';
 export const maxDuration = 30
 
 export async function POST(req: Request) {
-  const { messages } = await req.json()
+  const { messages, selectedCollectionId = 'all' } = await req.json()
+
+  console.log('Selection ID:', selectedCollectionId);
 
   const [tableAgentResult, queryAgentResult] = await Promise.all([
     tableAgent(
       messages[messages.length - 1].content,
       messages,
-      messages[messages.length - 1].selectedCollectionId || 'all'),
+      selectedCollectionId),
     queryAgent(
       messages[messages.length - 1].content,
       messages,
-      messages[messages.length - 1].selectedCollectionId || 'all')
+      selectedCollectionId)
   ])
 
   const result = streamText({

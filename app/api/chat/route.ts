@@ -28,6 +28,7 @@ Instructions:
 2. Use the query agent's response to understand the specific query requirements.
 3. Generate a valid SQL query that meets the requirements specified in the query agent's response.
 4. Do not include the database name in the query.
+5. ALWAYS replace custid with customer_id in the query, as the table agent will return custid but the query agent will expect customer_id.
 
 TABLE AGENT RESPONSE:
 ${tableAgentResult}

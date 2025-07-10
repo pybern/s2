@@ -10,7 +10,7 @@ import { SqlResultsDrawer } from "@/components/sql-results-drawer"
 import { extractSqlWithRemark } from "@/lib/utils/extract-sql-blocks"
 
 export function ChatPanel() {
-  const [selectedCollectionId, setSelectedCollectionId] = useState<string>('all')
+  const [selectedCollectionId, setSelectedCollectionId] = useState<string>('small_bank_1')
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [sqlQueries, setSqlQueries] = useState<string[]>([])
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false)

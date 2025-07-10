@@ -7,12 +7,12 @@ import { MessageCircle, Plus, Triangle } from "lucide-react"
 
 const exampleMessages = [
   {
-    heading: "Help me book a flight",
-    message: "from San Francisco to London",
+    heading: "List the top 10",
+    message: "savings accounts.",
   },
   {
-    heading: "What is the status",
-    message: "of flight BA142 flying tmrw?",
+    heading: "Which account",
+    message: "has above average checking balance?",
   },
 ]
 
@@ -28,14 +28,14 @@ export function EmptyScreen({ setInput }: Pick<UseChatHelpers, "setInput">) {
           </CardHeader>
           <CardContent className="text-center text-zinc-600 text-sm p-4 pt-0">
             <p>
-              This is an open source Chatbot template powered by the Google Gemini model built with Next.js and the AI
-              SDK by Vercel. It uses the <code className="font-mono bg-zinc-200 rounded px-1">streamText</code> function
-              in the server and the <code className="font-mono bg-zinc-200 rounded px-1">useChat</code> hook on the
-              client to create a seamless chat experience.
+              This is a Chatbot that turns texts to insight using LLMs and Generative UI. 
+              It uses the <code className="font-mono bg-zinc-200 rounded px-1">ai-sdk</code> as the ochestrator
+              for agentic workflows and <code className="font-mono bg-zinc-200 rounded px-1">NextJS</code> as the server.
+              Now loaded<code className="font-mono bg-zinc-200 rounded px-1">azure-ai</code> for LLMs.
             </p>
             <p className="mt-2">
-              You can learn more about the AI SDK by visiting the{" "}
-              <a href="https://sdk.vercel.ai/docs" className="text-purple-600 underline">
+              You can learn more about the Squeel by visiting the{" "}
+              <a href="https://github.com/pybern/squeel" className="text-purple-600 underline">
                 Docs
               </a>
               .

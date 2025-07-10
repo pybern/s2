@@ -1,6 +1,8 @@
 import type { Message } from "ai/react"
 import { Sparkles, User, Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import ReactMarkdown from "react-markdown"
+import remarkGfm from "remark-gfm"
 
 export function ChatMessages({ messages, isLoading }: { messages: Message[], isLoading?: boolean }) {
   return (
@@ -20,7 +22,35 @@ export function ChatMessages({ messages, isLoading }: { messages: Message[], isL
             )}
           </div>
           <div className="flex-1 pt-1">
-            <p className="text-zinc-800 whitespace-pre-wrap">{m.content}</p>
+            <div className="prose prose-zinc max-w-none prose-pre:bg-zinc-100 prose-pre:text-zinc-800">
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                components={{
+                  code: ({ className, children, ...props }) => {
+                    const isInline = !className
+                    if (isInline) {
+                      return (
+                        <code className="bg-zinc-100 px-1 py-0.5 rounded text-sm font-mono text-zinc-800" {...props}>
+                          {children}
+                        </code>
+                      )
+                    }
+                    return (
+                      <code className={className} {...props}>
+                        {children}
+                      </code>
+                    )
+                  },
+                  pre: ({ children, ...props }) => (
+                    <pre className="bg-zinc-100 p-4 rounded-lg overflow-x-auto" {...props}>
+                      {children}
+                    </pre>
+                  ),
+                }}
+              >
+                {m.content}
+              </ReactMarkdown>
+            </div>
           </div>
         </div>
       ))}

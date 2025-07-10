@@ -8,8 +8,6 @@ export const maxDuration = 30
 export async function POST(req: Request) {
   const { messages, selectedCollectionId = 'all' } = await req.json()
 
-  console.log('Selection ID:', selectedCollectionId);
-
   const [tableAgentResult, queryAgentResult] = await Promise.all([
     tableAgent(
       messages[messages.length - 1].content,
@@ -20,6 +18,10 @@ export async function POST(req: Request) {
       messages,
       selectedCollectionId)
   ])
+
+  console.log('Collection ID:', selectedCollectionId)
+  console.log('Table agent result:', tableAgentResult)
+  console.log('Query agent result:', queryAgentResult)
 
   const result = streamText({
     model: myProvider.languageModel('azure-sm-model'),

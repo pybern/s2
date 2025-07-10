@@ -101,14 +101,11 @@ User's context:
     maxSteps: 2, // Allow for tool call and response
     onStepFinish: ({ text, toolCalls, toolResults, finishReason, usage }) => {
 
-    console.log(text)
-
       // Accumulate tool calls and results
       if (toolCalls) allToolCalls.push(...toolCalls);
       if (toolResults) allToolResults.push(...toolResults);
     }
   })
 
-  console.log('Table agent result: ' ,result)
   return result
 }

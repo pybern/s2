@@ -5,15 +5,6 @@ import { generateEmbedding } from "../embeddings"
 import { supabase } from "@/lib/db/supabase"
 
 export default async function suggestQueryLogs(userMessage: string, messages: any[], selectedCollectionId = 'all') {
-  console.log("Query log agent called with:", {
-    userMessage,
-    selectedCollectionId,
-    collectionDetails: {
-      value: selectedCollectionId,
-      type: typeof selectedCollectionId,
-      isDefault: selectedCollectionId === 'all'
-    }
-  })
 
   let allToolCalls: any[] = [];
   let allToolResults: any[] = [];

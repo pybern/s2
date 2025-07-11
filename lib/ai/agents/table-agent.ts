@@ -7,8 +7,8 @@ import { supabase } from "@/lib/db/supabase"
 
 export default async function tableAgent(userMessage: string, messages: any[], selectedCollectionId = 'all') {
 
-  let allToolCalls: any[] = [];
-  let allToolResults: any[] = [];
+  const allToolCalls: any[] = [];
+  const allToolResults: any[] = [];
 
   const {
     text: result,

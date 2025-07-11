@@ -1,6 +1,7 @@
 "use client"
 
 import { Menu, Sparkles, Triangle } from "lucide-react"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Combobox } from "@/components/ui/combobox"
 import { useCollections } from "@/lib/hooks/use-collections"
@@ -29,7 +30,7 @@ export function Header({ selectedCollectionId, onCollectionChange }: HeaderProps
         </Button>
         <div className="flex items-center space-x-2">
           <span className="font-semibold">/</span>
-            <a href="/" className="font-semibold hover:underline">Squeel</a>
+            <Link href="/" className="font-semibold hover:underline">Squeel</Link>
         </div>
       </div>
       

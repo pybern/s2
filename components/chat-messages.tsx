@@ -6,6 +6,7 @@ import remarkGfm from "remark-gfm"
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism"
 import { memo, useEffect, useRef } from "react"
+import { ThinkingProcess } from "./thinking-process"
 
 // Memoize individual message component to prevent unnecessary re-renders
 const MessageItem = memo(({ message, index }: { message: Message; index: number }) => (
@@ -23,6 +24,11 @@ const MessageItem = memo(({ message, index }: { message: Message; index: number 
       )}
     </div>
     <div className="flex-1 pt-1">
+      {/* Show thinking process if there are tool invocations */}
+      {message.toolInvocations && message.toolInvocations.length > 0 && (
+        <ThinkingProcess toolInvocations={message.toolInvocations} />
+      )}
+      
       <div className="prose prose-zinc max-w-none prose-p:mb-4 prose-headings:mb-4 prose-headings:mt-6 prose-ul:mb-4 prose-ol:mb-4 prose-blockquote:mb-4 prose-pre:mb-4 prose-pre:bg-zinc-100 prose-pre:text-zinc-800">
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}

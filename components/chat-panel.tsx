@@ -55,7 +55,7 @@ export function ChatPanel() {
   }
 
   return (
-    <div className="flex flex-col h-[calc(100vh)] max-w-5xl mx-auto">
+    <div className="flex flex-col h-[calc(100vh)] w-[1024px] mx-auto">
       <Header 
         selectedCollectionId={selectedCollectionId}
         onCollectionChange={handleCollectionChange}

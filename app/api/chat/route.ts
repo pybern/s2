@@ -3,21 +3,28 @@ import { myProvider } from '@/lib/ai/providers';
 import tableAgent from '@/lib/ai/agents/table-agent';
 import queryAgent from '@/lib/ai/agents/query-agent';
 
+
 export const maxDuration = 30
 
 export async function POST(req: Request) {
   const { messages, selectedCollectionId = 'all' } = await req.json()
+  const recentMessage = messages[messages.length - 1].content
+
+  console.log('Starting Agent Execution')
 
   const [tableAgentResult, queryAgentResult] = await Promise.all([
     tableAgent(
-      messages[messages.length - 1].content,
+      recentMessage,
       messages,
       selectedCollectionId),
     queryAgent(
-      messages[messages.length - 1].content,
+      recentMessage,
       messages,
       selectedCollectionId)
   ])
+
+  console.log('Table Agent Result:', tableAgentResult)
+  console.log('Query Agent Result:', queryAgentResult)
 
   const result = streamText({
     model: myProvider.languageModel('azure-sm-model'),

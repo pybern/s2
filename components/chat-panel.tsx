@@ -20,7 +20,6 @@ export function ChatPanel() {
     body: {
       selectedCollectionId
     },
-    streamProtocol: 'text', // Use text streaming instead of data streaming
     onResponse: () => {
       setIsLoading(false)
     },
@@ -39,6 +38,8 @@ export function ChatPanel() {
       }
     }
   })
+
+  console.log("Chat messages:", messages)
 
   const handleCollectionChange = (collectionId: string) => {
     setSelectedCollectionId(collectionId)

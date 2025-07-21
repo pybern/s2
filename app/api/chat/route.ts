@@ -164,9 +164,9 @@ Important rules:
         },
       }),
     },
-    experimental_transform: smoothStream({ chunking: 'word' }),
+    experimental_transform: smoothStream(),
     maxSteps: 5, // Allow up to 5 steps for tool usage
   })
 
-  return result.toTextStreamResponse()
+  return result.toDataStreamResponse()
 }

@@ -15,11 +15,15 @@ export function ChatPanel() {
   const [sqlQueries, setSqlQueries] = useState<string[]>([])
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false)
   
-  const { messages, input, handleInputChange, handleSubmit, setInput } = useChat({
+  const { messages, input, handleInputChange, setInput, handleSubmit } = useChat({
+    id: "sql-chat",
+    initialMessages: [],
     api: '/api/chat',
     body: {
       selectedCollectionId
     },
+    // streamProtocol: 'text',
+    experimental_throttle: 50,
     onResponse: () => {
       setIsLoading(false)
     },
@@ -38,8 +42,6 @@ export function ChatPanel() {
       }
     }
   })
-
-  console.log("Chat messages:", messages)
 
   const handleCollectionChange = (collectionId: string) => {
     setSelectedCollectionId(collectionId)
@@ -62,7 +64,7 @@ export function ChatPanel() {
         onCollectionChange={handleCollectionChange}
       />
       <div className="flex-1 overflow-y-auto">
-        {messages.length > 0 ? <ChatMessages messages={messages} isLoading={isLoading} /> : <EmptyScreen setInput={setInput} />}
+        {messages.length > 0 ? <ChatMessages messages={messages} isLoading={isLoading} /> : <EmptyScreen setInput={setInput}/>}
       </div>
       <div className="w-full max-w-2xl mx-auto px-4 pb-4">
         <PromptForm input={input} handleInputChange={handleInputChange} handleSubmit={handleFormSubmit} />

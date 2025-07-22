@@ -9,6 +9,7 @@ export function PromptForm({
   handleInputChange,
   handleSubmit,
 }: Pick<UseChatHelpers, "input" | "handleInputChange" | "handleSubmit">) {
+
   return (
     <form
       onSubmit={handleSubmit}

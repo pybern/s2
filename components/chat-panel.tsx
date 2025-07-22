@@ -8,7 +8,7 @@ import { ChatMessages } from "@/components/chat-messages"
 import { PromptForm } from "@/components/prompt-form"
 import { EmptyScreen } from "@/components/empty-screen"
 import { Header } from "@/components/header"
-import { SqlResultsDrawer } from "@/components/sql-results-drawer"
+// import { SqlResultsDrawer } from "@/components/sql-results-drawer"
 import { extractSqlWithRemark } from "@/lib/utils/extract-sql-blocks"
 import { useConfigStore } from "@/lib/store/config" // Zustand store for UI state
 

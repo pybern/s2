@@ -30,11 +30,11 @@ export function ChatMessages({
               switch (part.type) {
                 case 'tool-invocation': {
                   return (
-                    <div key={index} className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                    <div key={index} className="bg-gray-50 border border-gray-200 rounded-lg p-4 max-w-full">
                       <div className="flex items-center space-x-2 mb-3">
                         <div className="flex items-center space-x-2">
                           <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-                          <span className="text-sm font-medium text-gray-700">
+                          <span className="text-sm font-medium text-gray-700 break-words">
                             Thinking... Using {part.toolInvocation.toolName}
                           </span>
                         </div>
@@ -43,7 +43,7 @@ export function ChatMessages({
                         <summary className="cursor-pointer text-sm text-gray-600 hover:text-gray-800 select-none">
                           View details
                         </summary>
-                        <pre className="mt-2 text-xs bg-gray-100 p-3 rounded border overflow-x-auto">
+                        <pre className="mt-2 text-xs bg-gray-100 p-3 rounded border overflow-x-auto whitespace-pre-wrap break-words max-w-full">
                           {JSON.stringify(part.toolInvocation, null, 2)}
                         </pre>
                       </details>

@@ -5,14 +5,18 @@ import { X, Play, Clock, Database, AlertCircle, CheckCircle } from "lucide-react
 import { Button } from "@/components/ui/button"
 import { runSafeSql, type SqlResult } from "@/lib/utils/run-safe-sql"
 import { DynamicBarChart } from "@/components/dynamic-bar-chart"
+import { useConfigStore } from "@/lib/store/config" // Import the Zustand store
 
-interface SqlResultsDrawerProps {
-  isOpen: boolean
-  onClose: () => void
-  sqlQueries: string[]
-}
+// interface SqlResultsDrawerProps {
+//   isOpen: boolean
+//   onClose: () => void
+//   sqlQueries: string[]
+// }
 
-export function SqlResultsDrawer({ isOpen, onClose, sqlQueries }: SqlResultsDrawerProps) {
+export function SqlResultsDrawer() {
+
+  const { isDrawerOpen, closeDrawer, sqlQueries } = useConfigStore()
+
   const [results, setResults] = useState<{ [key: number]: SqlResult }>({})
   const [loading, setLoading] = useState<{ [key: number]: boolean }>({})
 
@@ -56,14 +60,14 @@ export function SqlResultsDrawer({ isOpen, onClose, sqlQueries }: SqlResultsDraw
     return query.trim().replace(/\s+/g, ' ')
   }
 
-  if (!isOpen) return null
+  if (!isDrawerOpen) return null
 
   return (
     <>
       {/* Backdrop */}
       <div 
         className="fixed inset-0 bg-black/50 z-40"
-        onClick={onClose}
+        onClick={closeDrawer}
       />
       
       {/* Drawer */}
@@ -74,7 +78,7 @@ export function SqlResultsDrawer({ isOpen, onClose, sqlQueries }: SqlResultsDraw
             <Database className="w-5 h-5" />
             SQL Query Results
           </h2>
-          <Button variant="ghost" size="sm" onClick={onClose}>
+          <Button variant="ghost" size="sm" onClick={closeDrawer}>
             <X className="w-4 h-4" />
           </Button>
         </div>

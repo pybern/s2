@@ -16,7 +16,8 @@ const exampleMessages = [
   },
 ]
 
-export function EmptyScreen({ setInput }: Pick<UseChatHelpers, "setInput">) {
+export function EmptyScreen({ setInput } : Pick<UseChatHelpers, "setInput">) {
+
   return (
     <div className="flex flex-col items-center justify-center h-full px-4">
       <div className="max-w-2xl mx-auto">

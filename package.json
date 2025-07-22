@@ -21,12 +21,14 @@
     "clsx": "^2.1.1",
     "fs": "0.0.1-security",
     "lucide-react": "^0.525.0",
+    "marked": "^16.1.1",
     "mdast": "^3.0.0",
     "next": "15.3.5",
     "postgres": "^3.4.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-markdown": "^10.1.0",
+    "react-scan": "^0.4.3",
     "react-syntax-highlighter": "^15.6.1",
     "recharts": "2.15.4",
     "remark-gfm": "^4.0.1",
@@ -35,7 +37,8 @@
     "tls": "^0.0.1",
     "unified": "^11.0.5",
     "unist-util-visit": "^5.0.0",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "zustand": "^5.0.6"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

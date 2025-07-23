@@ -66,7 +66,7 @@ export function ChatPanel() {
         selectedCollectionId={selectedCollectionId}
         onCollectionChange={handleCollectionChange}
       />
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto custom-scrollbar">
         {messages.length > 0 ? <ChatMessages messages={messages} isLoading={isLoading} /> : <EmptyScreen setInput={setInput}/>}
       </div>
       <div className="w-full max-w-2xl mx-auto px-4 pb-4">

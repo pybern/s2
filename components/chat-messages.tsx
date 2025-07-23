@@ -3,6 +3,7 @@
 import type { Message } from "ai/react"
 import { Loader2 } from "lucide-react"
 import { MemoizedMarkdown } from "./memoized-markdown"
+import { useEffect, useRef } from "react"
 
 
 export function ChatMessages({
@@ -12,9 +13,33 @@ export function ChatMessages({
   messages: Message[]
   isLoading?: boolean
 }) {
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }
+
+  // Auto-scroll when messages change or when loading state changes
+  useEffect(() => {
+    // Only auto-scroll if user is near the bottom or if it's the first message
+    if (messages.length === 1 || isNearBottom()) {
+      scrollToBottom()
+    }
+  }, [messages, isLoading])
+
+  // Check if user has scrolled up and only auto-scroll if they're near the bottom
+  const isNearBottom = () => {
+    if (!containerRef.current) return true
+    const container = containerRef.current.parentElement // The scrollable container
+    if (!container) return true
+    
+    const { scrollTop, scrollHeight, clientHeight } = container
+    return scrollHeight - scrollTop - clientHeight < 100 // 100px threshold
+  }
 
   return (
-    <div className="space-y-6 px-4 py-6 max-w-2xl mx-auto">
+    <div ref={containerRef} className="space-y-6 px-4 py-6 max-w-2xl mx-auto">
 
       {messages.map((message) => (
         <div key={message.id} className="flex items-start space-x-4">
@@ -76,6 +101,7 @@ export function ChatMessages({
         </div>
       )}
       {/* Invisible element at the bottom to scroll to */}
+      <div ref={messagesEndRef} />
     </div>
   )
 }
